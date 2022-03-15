@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { LaterEventsBox, Title, Events } from "./LaterEvents.style";
 import Card from "../Card";
-import { getBudapestParkEvents, getAkvariumKlubEvents } from "../../api/api";
 import { IEvent } from "../../interfaces/IEvent";
 import { sortByDate } from "../../utils/utils";
 import { useQueryEvent } from "../../hooks/useQueryEvent";
 
 const LaterEvents = () => {
-  const [events, setEvents] = useState<IEvent[]>([]);
   const [sortedEvents, setSortedEvents] = useState<IEvent[]>([]);
 
   const { data: budapestParkData, isLoading: budapestParkDataIsLoading } =
@@ -19,7 +17,7 @@ const LaterEvents = () => {
   useEffect(() => {
     if (!akvariumKlubDataIsLoading && !budapestParkDataIsLoading) {
       const allEvents = [...budapestParkData, ...akvariumKlubData];
-      setSortedEvents(sortByDate(allEvents));
+      setSortedEvents(sortByDate(allEvents).slice(4));
     }
   }, [
     akvariumKlubData,
