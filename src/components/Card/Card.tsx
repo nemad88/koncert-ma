@@ -9,7 +9,7 @@ interface ICard {
 const Card = ({ variation = "normal", event }: ICard) => {
   return (
     <CardWrapper variation={variation}>
-      <CardDetails>
+      <CardDetails variation={variation}>
         <div>{event.title}</div>
         <div>
           {event.year}. {event.month}. {event.day}.

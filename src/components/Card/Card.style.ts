@@ -28,7 +28,7 @@ export const CardWrapper = styled.div<ICardWrapper>`
   }
 `;
 
-export const CardDetails = styled.div`
+export const CardDetails = styled.div<ICardWrapper>`
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -38,13 +38,23 @@ export const CardDetails = styled.div`
   bottom: 0;
   max-width: 70%;
   div {
+    ${({ variation }) =>
+      variation === "small"
+        ? css`
+            background-color: #ff5151;
+            color: #ffffff;
+          `
+        : css`
+            background-color: #faf477;
+            color: #000000;
+          `};
+
     padding: 8px;
-    background-color: #ff5151;
+
     font-family: "Nunito";
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 19px;
-    color: #ffffff;
   }
 `;
