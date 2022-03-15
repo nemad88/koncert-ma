@@ -9,3 +9,7 @@ export const getBudapestParkEvents = () => {
 export const getAkvariumKlubEvents = () => {
   return axios.get(`${baseUrl}/akvariumklub`).then((response) => response.data);
 };
+
+export const getEventList = (place: any) => {
+  return axios.get(`${baseUrl}/${place}`).then((response) => response.data);
+};

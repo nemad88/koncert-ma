@@ -17,7 +17,7 @@ const Card = ({ variation = "normal", event }: ICard) => {
         <div>{event.place}</div>
       </CardDetails>
 
-      <img src={event.imageUrl} />
+      <img src={event.imageUrl} loading="lazy" />
     </CardWrapper>
   );
 };

@@ -11,6 +11,7 @@
     "react-query": "^3.34.16",
     "styled-components": "^5.3.3"
   },
+  
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve"

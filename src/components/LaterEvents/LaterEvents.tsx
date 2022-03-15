@@ -4,23 +4,29 @@ import Card from "../Card";
 import { getBudapestParkEvents, getAkvariumKlubEvents } from "../../api/api";
 import { IEvent } from "../../interfaces/IEvent";
 import { sortByDate } from "../../utils/utils";
+import { useQueryEvent } from "../../hooks/useQueryEvent";
 
 const LaterEvents = () => {
   const [events, setEvents] = useState<IEvent[]>([]);
   const [sortedEvents, setSortedEvents] = useState<IEvent[]>([]);
 
-  useEffect(() => {
-    getBudapestParkEvents().then((data: IEvent[]) =>
-      setEvents((events) => [...events, ...data])
-    );
-    getAkvariumKlubEvents().then((data: IEvent[]) =>
-      setEvents((events) => [...events, ...data])
-    );
-  }, []);
+  const { data: budapestParkData, isLoading: budapestParkDataIsLoading } =
+    useQueryEvent("budapestpark");
+
+  const { data: akvariumKlubData, isLoading: akvariumKlubDataIsLoading } =
+    useQueryEvent("akvariumklub");
 
   useEffect(() => {
-    setSortedEvents(sortByDate(events));
-  }, [events]);
+    if (!akvariumKlubDataIsLoading && !budapestParkDataIsLoading) {
+      const allEvents = [...budapestParkData, ...akvariumKlubData];
+      setSortedEvents(sortByDate(allEvents));
+    }
+  }, [
+    akvariumKlubData,
+    budapestParkData,
+    akvariumKlubDataIsLoading,
+    budapestParkDataIsLoading,
+  ]);
 
   return (
     <LaterEventsBox>
