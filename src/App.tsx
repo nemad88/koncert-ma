@@ -10,7 +10,7 @@ const client = new QueryClient();
 const App = (): JSX.Element => {
   return (
     <QueryClientProvider client={client}>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
       <div className="wrapper">
         <Header />
         <UpcomingEvents />
