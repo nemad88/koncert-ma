@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
     ),
     linear-gradient(97.77deg, #ff0000 -20.45%, #f3ff00 44.87%, #ff8d0e 100.14%);
   padding: 56px 104px;
+
+  @media screen and (max-width: 480px) {
+    padding: 24px;
+  }
 `;
 
 export const Title = styled.div`

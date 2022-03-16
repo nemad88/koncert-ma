@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { LaterEventsBox, Title, Events } from "./LaterEvents.style";
 import Card from "../Card";
 import { IEvent } from "../../interfaces/IEvent";
 import { sortByDate } from "../../utils/utils";
 import { useQueryEvent } from "../../hooks/useQueryEvent";
 
-const LaterEvents = () => {
+interface ILaterEvents {
+  selectedPlaces: string[];
+}
+
+const LaterEvents = ({ selectedPlaces }: ILaterEvents) => {
   const [sortedEvents, setSortedEvents] = useState<IEvent[]>([]);
 
   const { data: budapestParkData, isLoading: budapestParkDataIsLoading } =
@@ -16,14 +20,26 @@ const LaterEvents = () => {
 
   useEffect(() => {
     if (!akvariumKlubDataIsLoading && !budapestParkDataIsLoading) {
-      const allEvents = [...budapestParkData, ...akvariumKlubData];
-      setSortedEvents(sortByDate(allEvents).slice(4));
+      let allEvents: IEvent[] = [];
+
+      if (selectedPlaces.includes("park")) {
+        allEvents = [...allEvents, ...budapestParkData];
+      }
+
+      if (selectedPlaces.includes("akvarium")) {
+        allEvents = [...allEvents, ...akvariumKlubData];
+      }
+
+      // const allEvents = [...budapestParkData, ...akvariumKlubData];
+      const sortedAllEvents = sortByDate(allEvents);
+      setSortedEvents(sortedAllEvents.slice(4));
     }
   }, [
     akvariumKlubData,
     budapestParkData,
     akvariumKlubDataIsLoading,
     budapestParkDataIsLoading,
+    selectedPlaces,
   ]);
 
   return (

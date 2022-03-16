@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const TopLine = styled.div`
   width: 100%;
@@ -29,10 +29,21 @@ export const FilterWrapper = styled.div`
   gap: 16px;
 `;
 
-export const Checkbox = styled.div`
+interface ICheckBox {
+  isSelected: boolean;
+}
+
+export const Checkbox = styled.div<ICheckBox>`
   width: 18px;
   height: 18px;
   border: 1px solid black;
+  ${({ isSelected }) => {
+    return isSelected
+      ? css`
+          background-color: red;
+        `
+      : null;
+  }}
 `;
 
 export const SearchBox = styled.div`

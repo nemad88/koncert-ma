@@ -5,7 +5,11 @@ import Card from "../Card";
 import { sortByDate } from "../../utils/utils";
 import { useQueryEvent } from "../../hooks/useQueryEvent";
 
-const UpcomingEvents = () => {
+interface IUpcomingEvents {
+  selectedPlaces: string[];
+}
+
+const UpcomingEvents = ({ selectedPlaces }: IUpcomingEvents) => {
   const [sortedEvents, setSortedEvents] = useState<IEvent[]>([]);
 
   const { data: budapestParkData, isLoading: budapestParkDataIsLoading } =
@@ -16,14 +20,26 @@ const UpcomingEvents = () => {
 
   useEffect(() => {
     if (!akvariumKlubDataIsLoading && !budapestParkDataIsLoading) {
-      const allEvents = [...budapestParkData, ...akvariumKlubData];
-      setSortedEvents(sortByDate(allEvents).slice(0, 4));
+      let allEvents: IEvent[] = [];
+
+      if (selectedPlaces.includes("park")) {
+        allEvents = [...allEvents, ...budapestParkData];
+      }
+
+      if (selectedPlaces.includes("akvarium")) {
+        allEvents = [...allEvents, ...akvariumKlubData];
+      }
+
+      // const allEvents = [...budapestParkData, ...akvariumKlubData];
+      const sortedAllEvents = sortByDate(allEvents);
+      setSortedEvents(sortedAllEvents.slice(0, 4));
     }
   }, [
     akvariumKlubData,
     budapestParkData,
     akvariumKlubDataIsLoading,
     budapestParkDataIsLoading,
+    selectedPlaces,
   ]);
 
   return (

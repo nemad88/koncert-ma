@@ -4,6 +4,9 @@ export const LaterEventsBox = styled.div`
   width: 100%;
   background: linear-gradient(180deg, #ff2b2b 0%, #fa3d3d 56.77%, #ec2525 100%);
   padding: 56px 104px;
+  @media screen and (max-width: 480px) {
+    padding: 24px;
+  }
 `;
 
 export const Title = styled.div`
