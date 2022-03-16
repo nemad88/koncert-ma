@@ -14,6 +14,9 @@ export const FilterBox = styled.div`
   align-items: center;
   gap: 24px;
   border-bottom: 2px solid #e5e5e5;
+  @media screen and (max-width: 480px) {
+    gap: 16px;
+  }
 `;
 
 export const FilterWrapper = styled.div`
@@ -27,6 +30,11 @@ export const FilterWrapper = styled.div`
   line-height: 22px;
   color: #000000;
   gap: 16px;
+
+  @media screen and (max-width: 480px) {
+    gap: 8px;
+    font-size: 12px;
+  }
 `;
 
 interface ICheckBox {
